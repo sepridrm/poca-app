@@ -3,6 +3,7 @@ import { Icon, TabBar } from '@ant-design/react-native';
 
 import Home from './Home/Home'
 import Profile from './Profile/Profile'
+import { StatusBar, View } from 'react-native';
 
 
 export default class TabBarMenu extends Component {
@@ -20,21 +21,23 @@ export default class TabBarMenu extends Component {
     }
     render() {
         return (
-            <TabBar
-                unselectedTintColor="#949494"
-                tintColor="#33A3F4"
-                barTintColor="#f5f5f5"
-            >
-                <TabBar.Item
-                    title="Home"
-                    icon={<Icon name="home" />}
-                    selected={this.state.selectedTab === 'homeTab'}
-                    onPress={() => this.onChangeTab('homeTab')}
+            <>
+                <StatusBar backgroundColor='#F0EFF4' barStyle='dark-content' />
+                <TabBar
+                    unselectedTintColor="#949494"
+                    tintColor="#33A3F4"
+                    barTintColor="#f5f5f5"
                 >
-                    <Home navigation={this.props.navigation} />
-                </TabBar.Item>
+                    <TabBar.Item
+                        title="Home"
+                        icon={<Icon name="home" />}
+                        selected={this.state.selectedTab === 'homeTab'}
+                        onPress={() => this.onChangeTab('homeTab')}
+                    >
+                        <Home navigation={this.props.navigation} />
+                    </TabBar.Item>
 
-                {/* <TabBar.Item
+                    {/* <TabBar.Item
                     icon={<Icon name="ordered-list" />}
                     title="Koubei"
                     badge={2}
@@ -52,15 +55,16 @@ export default class TabBarMenu extends Component {
                     {this.renderContent('Friend Tab')}
                 </TabBar.Item> */}
 
-                <TabBar.Item
-                    icon={<Icon name="user" />}
-                    title="Profile"
-                    selected={this.state.selectedTab === 'profileTab'}
-                    onPress={() => this.onChangeTab('profileTab')}
-                >
-                    <Profile navigation={this.props.navigation} />
-                </TabBar.Item>
-            </TabBar>
+                    <TabBar.Item
+                        icon={<Icon name="user" />}
+                        title="Profile"
+                        selected={this.state.selectedTab === 'profileTab'}
+                        onPress={() => this.onChangeTab('profileTab')}
+                    >
+                        <Profile navigation={this.props.navigation} />
+                    </TabBar.Item>
+                </TabBar>
+            </>
         );
     }
 }
