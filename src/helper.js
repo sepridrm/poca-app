@@ -1,11 +1,11 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { Dimensions } from 'react-native';
 
-const baseURL = 'http://192.168.43.163:80/'
+const baseURL = 'http://192.168.43.163:8000/'
 
 export const getUrl = {
     baseApi: baseURL + 'api/',
-    baseURLimageInbound: baseURL + 'storage/inbound/',
+    baseURLimage: baseURL,
 }
 
 export const getRandomChar = () => {

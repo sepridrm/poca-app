@@ -13,6 +13,8 @@ import InboundSubDetail from './src/Home/InboundSubDetail'
 import AddInboundMaterial from './src/Home/AddInboundMaterial'
 import AddInboundDetail from './src/Home/AddInboundDetail'
 import AddInboundSubDetail from './src/Home/AddInboundSubDetail'
+import Camera from './src/template/Camera'
+import ImageView from './src/template/ImageView'
 
 import { getAuthUser } from './src/helper'
 
@@ -73,6 +75,8 @@ export default function StackNavigator() {
         <Stack.Screen name="AddInboundMaterial" component={AddInboundMaterial} options={{ title: 'Inbound Material', headerStyle: { elevation: 0, shadowOpacity: 0, backgroundColor: '#F0EFF4' } }} />
         <Stack.Screen name="AddInboundDetail" component={AddInboundDetail} options={{ title: 'Inbound Detail', headerStyle: { elevation: 0, shadowOpacity: 0, backgroundColor: '#F0EFF4' } }} />
         <Stack.Screen name="AddInboundSubDetail" component={AddInboundSubDetail} options={{ title: 'Inbound Detail', headerStyle: { elevation: 0, shadowOpacity: 0, backgroundColor: '#F0EFF4' } }} />
+        <Stack.Screen name="Camera" component={Camera} options={{ headerShown: false }} />
+        <Stack.Screen name="ImageView" component={ImageView} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   )

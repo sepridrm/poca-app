@@ -29,7 +29,7 @@ export default class Profile extends Component {
     return (
       <View style={{ flex: 1, flexDirection: 'column', alignContent: 'center', alignItems: 'center' }}>
         <View style={{ padding: 3, backgroundColor: getColor.button, borderRadius: 50, marginTop: 50 }}>
-          <Thumbnail large source={{ uri: getUrl.baseURLimageInbound+this.state.pegawai.path_foto }} />
+          <Thumbnail large source={{ uri: getUrl.baseURLimage+this.state.pegawai.path_foto }} />
         </View>
 
         <List renderHeader="Profil detail" style={{ width: '100%', marginTop: 20 }}>

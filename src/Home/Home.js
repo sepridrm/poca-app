@@ -102,12 +102,12 @@ function ItemList(item, index, count, navigation) {
 
         <TouchableOpacity onPress={() => navigation.navigate('InboundDetail', { item: item })}>
             <WingBlank size="lg">
-                <WhiteSpace size="md" />
+                <WhiteSpace size="sm" />
                 <Card>
                     <Card.Header
                         title={item.nama}
                         thumbStyle={{ width: 30, height: 30, borderRadius: 15 }}
-                        thumb={getUrl.baseURLimageInbound + item.path_foto}
+                        thumb={getUrl.baseURLimage + item.path_foto}
                     // extra="this is extra"
                     />
                     <Card.Body>
@@ -122,6 +122,7 @@ function ItemList(item, index, count, navigation) {
                         extra={item.nama_customer + " (" + item.nama_operator + ")"}
                     />
                 </Card>
+                <WhiteSpace size="sm" />
             </WingBlank>
         </TouchableOpacity>
     )

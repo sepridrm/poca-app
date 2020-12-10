@@ -5,19 +5,50 @@ import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { FlatList, TouchableHighlight } from 'react-native-gesture-handler';
 
-import { getColor } from '../helper'
+import { getAuthUser, getColor } from '../helper'
+import API from '../api'
+import NoData from '../template/NoData'
 
 export default class InboundDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            pegawai: {},
             item: props.route.params.item,
-            data: [
-                { id: '0', nama_material: 'WRFU', qty: 3 },
-                { id: '1', nama_material: 'WRFA', qty: 6 },
-                { id: '2', nama_material: 'WFA', qty: 8 },
-            ]
+            data: []
         };
+        this.getInbondDetail = this.getInbondDetail.bind(this)
+    }
+
+    componentDidMount() {
+        getAuthUser().then(value => {
+            this.setState({
+                pegawai: value
+            })
+        })
+        this.getInbondDetail()
+    }
+
+    getInbondDetail() {
+        API.get('inbond-detail/' + this.state.item.id)
+            .then(res => {
+                // console.log(res.data);
+                if (res.data.status == 'Ok') {
+                    this.setState({
+                        data: res.data.data
+                    })
+                } else {
+                    Toast.show({
+                        text: res.data.message,
+                        type: "danger"
+                    })
+                }
+            }).catch(err => {
+                Toast.show({
+                    text: err.message,
+                    type: "danger"
+                })
+            })
     }
 
     render() {
@@ -32,30 +63,37 @@ export default class InboundDetail extends Component {
                         <Text>Customer (operator): {this.state.item.nama_customer} ({this.state.item.nama_operator})</Text>
                     </View>
                     <SearchBar placeholder="Search" showCancelButton cancelText={'Cancel'} />
-                    <FlatList
-                        showsVerticalScrollIndicator={false}
-                        data={this.state.data}
-                        keyExtractor={(item, index) => index.toString()}
-                        renderItem={({ item, index }) =>
-                            ItemList(item, index, this.state.data.length - 1, this.props.navigation)
-                        }
-                    />
 
-                    <Fab
-                        style={{ backgroundColor: getColor.button }}
-                        position="bottomRight"
-                        onPress={() => this.props.navigation.navigate("AddInboundDetail")}>
-                        <Icon name="add" />
-                    </Fab>
+                    {this.state.data.length === 0 ?
+                        <NoData />
+                        :
+                        <FlatList
+                            showsVerticalScrollIndicator={false}
+                            data={this.state.data}
+                            keyExtractor={(item, index) => index.toString()}
+                            renderItem={({ item, index }) =>
+                                ItemList(item, index, this.state.data.length - 1, this.props.navigation, this.state.item)
+                            }
+                        />
+                    }
+
+                    {this.state.pegawai.id === this.state.item.id_pegawai ?
+                        <Fab
+                            style={{ backgroundColor: getColor.button }}
+                            position="bottomRight"
+                            onPress={() => this.props.navigation.navigate("AddInboundDetail", { item: this.state.item, getInbondDetail: this.getInbondDetail })}>
+                            <Icon name="add" />
+                        </Fab>
+                        : null}
                 </View>
             </Provider>
         );
     }
 }
 
-function ItemList(item, index, count, navigation) {
+function ItemList(item, index, count, navigation, item_material) {
     return (
-        <TouchableHighlight onPress={() => navigation.navigate('InboundSubDetail', { item: item })}>
+        <TouchableHighlight onPress={() => navigation.navigate('InboundSubDetail', { item: item, item_material: item_material })}>
             <List>
                 <List.Item
                     wrap
